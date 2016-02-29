@@ -10,9 +10,7 @@ feature 'restaurants' do
   end
 
   context 'restaurants have been added' do
-    before do
-      Restaurant.create(name: 'KFC')
-    end
+    before { Restaurant.create name: 'KFC'}
 
     scenario 'display restaurants' do
       visit '/restaurants'
@@ -44,7 +42,6 @@ feature 'restaurants' do
   end
 
   context 'editing restaurants' do
-
     before { Restaurant.create name: 'KFC'}
 
     scenario 'let a user edit a restaurant' do
@@ -57,4 +54,14 @@ feature 'restaurants' do
     end
   end
 
+  context 'deleting restaurants' do
+    before { Restaurant.create name: 'KFC'}
+
+    scenario 'removes a restaurant when a user clicks a delete link' do
+      visit '/restaurants'
+      click_link 'Delete KFC'
+      expect(page).not_to have_content 'KFC'
+      expect(page).to have_content 'Restaurant deleted successfully'
+    end
+  end
 end
