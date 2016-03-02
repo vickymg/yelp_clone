@@ -1,6 +1,7 @@
 = form_for @restaurant do |f|
   = f.label :name
   = f.text_field :name
+  = f.hidden_field :user_id , :value => current_user.id
   = f.submit
 
 - if @restaurant.errors.any?

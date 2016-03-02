@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative 'web_spec_helper'
 
 feature 'User can sign in and out' do
   context 'user not signed in and on the homepage' do
@@ -17,7 +18,7 @@ feature 'User can sign in and out' do
     it "should not be able to create restaurants" do
       visit('/')
       click_link('Add a restaurant')
-      expect(current_path).not_to eq('/restaurants')
+      expect(current_path).not_to have_button('Create restaurant')
     end
 
   end
@@ -41,24 +42,35 @@ feature 'User can sign in and out' do
       expect(page).not_to have_link('Sign in')
       expect(page).not_to have_link('Sign up')
     end
-
-    context "user can edit, delete and review restaurants" do
-      it "can only edit restaurants they have created" do
-
-      end
-
-      it "can only delete restauranats they have created" do
-
-      end
-
-      it "can only review each restaurant once" do
-
-      end
-
-      it "can only delete their own reviews" do
-
-      end
-    end
   end
 
+  context "user can edit and delete" do
+    before { another_user_creates_restaurant }
+    before { sign_up }
+      it "can only edit restaurants they have created" do
+        visit '/restaurants'
+        click_link 'Edit Dominoes'
+        expect(page).to have_content('Sorry, you cannot edit or delete a restaurant you didn\'t create')
+      end
+
+      it "can only delete restaurants they have created" do
+        visit '/restaurants'
+        click_link 'Delete Dominoes'
+        expect(page).to have_content('Sorry, you cannot edit or delete a restaurant you didn\'t create')
+      end
+  end
+
+  context "user can review restaurants" do
+    before { create_restaurant }
+    before { review_restaurant }
+    it "can only review each restaurant once" do
+      visit '/restaurants'
+      click_link 'Review Dominoes'
+      expect(page).to have_content('Sorry, you cannot review a restaurant twice!')
+    end
+      #
+      # it "can only delete their own reviews" do
+      #
+      # end
+  end
 end
