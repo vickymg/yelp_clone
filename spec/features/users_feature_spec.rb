@@ -14,6 +14,12 @@ feature 'User can sign in and out' do
      expect(page).not_to have_link('Sign out')
     end
 
+    it "should not be able to create restaurants" do
+      visit('/')
+      click_link('Add a restaurant')
+      expect(current_path).not_to eq('/restaurants')
+    end
+
   end
 
   context "user signed in on the homepage" do
@@ -34,6 +40,24 @@ feature 'User can sign in and out' do
       visit('/')
       expect(page).not_to have_link('Sign in')
       expect(page).not_to have_link('Sign up')
+    end
+
+    context "user can edit, delete and review restaurants" do
+      it "can only edit restaurants they have created" do
+
+      end
+
+      it "can only delete restauranats they have created" do
+
+      end
+
+      it "can only review each restaurant once" do
+
+      end
+
+      it "can only delete their own reviews" do
+
+      end
     end
   end
 

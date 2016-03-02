@@ -1,6 +1,11 @@
 require 'rails_helper'
+require_relative 'web_spec_helper'
+
 
 feature 'restaurants' do
+  before do
+    sign_up
+  end
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
       visit '/restaurants'
@@ -11,7 +16,6 @@ feature 'restaurants' do
 
   context 'restaurants have been added' do
     before { Restaurant.create name: 'KFC'}
-
     scenario 'display restaurants' do
       visit '/restaurants'
       expect(page).to have_content 'KFC'
@@ -30,10 +34,10 @@ feature 'restaurants' do
     end
   end
 
-  context 'creating restaurants' do
+  context 'viewing restaurants' do
     let!(:kfc) {Restaurant.create(name:'KFC')}
 
-    scenario '' do
+    scenario 'view restaurant profile' do
       visit '/restaurants'
       click_link 'KFC'
       expect(page).to have_content 'KFC'
