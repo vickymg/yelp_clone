@@ -72,7 +72,6 @@ feature 'restaurants' do
 
   context 'deleting restaurants' do
     before { create_restaurant }
-
     scenario 'removes a restaurant when a user clicks a delete link' do
       visit '/restaurants'
       click_link 'Delete Dominoes'
