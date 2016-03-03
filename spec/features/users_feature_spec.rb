@@ -49,13 +49,13 @@ feature 'User can sign in and out' do
     before { sign_up }
       it "can only edit restaurants they have created" do
         visit '/restaurants'
-        click_link 'Edit Dominoes'
+        click_link 'Edit KFC'
         expect(page).to have_content('Sorry, you cannot edit or delete a restaurant you didn\'t create')
       end
 
       it "can only delete restaurants they have created" do
         visit '/restaurants'
-        click_link 'Delete Dominoes'
+        click_link 'Delete KFC'
         expect(page).to have_content('Sorry, you cannot edit or delete a restaurant you didn\'t create')
       end
   end
