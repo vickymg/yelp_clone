@@ -38,11 +38,11 @@ describe Restaurant, type: :model do
     context 'no reviews' do
       it 'returns "N/A" when there are no reviews' do
         restaurant = Restaurant.create(name: 'The Ivy')
-        expect(restaurant.average_rating).to eq 'N/A'
+        expect(restaurant.average_rating).to eq '☆☆☆☆☆'
       end
     end
 
-    context '1 review' do
+    context 'one review' do
       it 'returns that rating' do
         restaurant = Restaurant.create(name: 'The Ivy')
         restaurant.reviews.create(rating: 4)

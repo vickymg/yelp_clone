@@ -20,7 +20,7 @@ feature 'reviewing' do
     sign_up_diff_user
     leave_review('Great', '5')
     expect(page).to have_content('Average rating: 4')
-    expect(page).to have_content('Average rating: ★★★★☆')
+    expect(page).to have_content('★★★★☆')
   end
 
 end

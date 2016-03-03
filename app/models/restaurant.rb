@@ -8,7 +8,7 @@ class Restaurant < ActiveRecord::Base
   belongs_to :user
 
   def average_rating
-    return 'N/A' if reviews.none?
+    return '☆☆☆☆☆' if reviews.none?
     reviews.average(:rating)
   end
 
