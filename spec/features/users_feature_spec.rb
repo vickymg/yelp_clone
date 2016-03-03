@@ -65,12 +65,14 @@ feature 'User can sign in and out' do
     before { review_restaurant }
     it "can only review each restaurant once" do
       visit '/restaurants'
-      review_restaurant
-      expect(page).to have_content('You have already reviewed this restaurant')
+      expect(page).not_to have_link('Review Dominoes')
     end
-      #
-      # it "can only delete their own reviews" do
-      #
-      # end
+
+    it "can only delete their own reviews" do
+      visit '/restaurants'
+      expect(page).to have_content('Delete Review')
+      click_link 'Delete Review'
+      expect(page).to have_content('Review deleted successfully')
+    end
   end
 end
