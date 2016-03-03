@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActiveSupport::Testing::TimeHelpers
 
 feature 'reviewing' do
   before { create_restaurant }
@@ -21,6 +22,19 @@ feature 'reviewing' do
     leave_review('Great', '5')
     expect(page).to have_content('Average rating: 4')
     expect(page).to have_content('★★★★☆')
+  end
+
+  scenario 'displays the time of a recent post relative to now' do
+    leave_review('So so', '3')
+    expect(page).to have_content('less than a minute ago')
+  end
+
+  scenario 'displays the time of an older post relative to now' do
+    leave_review('So so', '3')
+      travel(1.day) do
+        visit '/restaurants'
+        expect(page).to have_content('1 day ago')
+      end
   end
 
 end

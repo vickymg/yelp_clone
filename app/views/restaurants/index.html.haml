@@ -16,7 +16,9 @@
           %li
             = review.thoughts
             %strong= review.rating
-            \/5
+            %strong /5
+            %em= distance_of_time_in_words(review.created_at, Time.now)
+            %em ago
     - else
       %p No reviews
 
