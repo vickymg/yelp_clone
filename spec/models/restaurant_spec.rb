@@ -49,6 +49,8 @@ describe Restaurant, type: :model do
         expect(restaurant.average_rating).to eq 4
       end
     end
+
+
   end
 
 end

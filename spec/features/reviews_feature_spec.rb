@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature 'reviewing' do
-  before { another_user_creates_restaurant }
   before { create_restaurant }
 
   scenario 'allows users to leave a review using a form' do
@@ -17,7 +16,9 @@ feature 'reviewing' do
 
   scenario 'displays an average rating for all reviews' do
     leave_review('So so', '3')
-    leave_another_review('Great', '5')
+    click_link 'Sign out'
+    sign_up_diff_user
+    leave_review('Great', '5')
     expect(page).to have_content('Average rating: 4')
   end
 

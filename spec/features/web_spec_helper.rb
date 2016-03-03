@@ -7,6 +7,15 @@ def sign_up
   click_button('Sign up')
 end
 
+def sign_up_diff_user
+  visit('/')
+  click_link('Sign up')
+  fill_in('Email', with: 'test2@example.com')
+  fill_in('Password', with: 'testtest')
+  fill_in('Password confirmation', with: 'testtest')
+  click_button('Sign up')
+end
+
 def create_restaurant
   visit('/')
   click_link('Sign up')
@@ -41,14 +50,6 @@ end
 def leave_review(thoughts, rating)
   visit '/restaurants'
   click_link 'Review Dominoes'
-  fill_in 'Thoughts', with: thoughts
-  select rating, from: 'Rating'
-  click_button 'Leave Review'
-end
-
-def leave_another_review(thoughts, rating)
-  visit '/restaurants'
-  click_link 'Review KFC'
   fill_in 'Thoughts', with: thoughts
   select rating, from: 'Rating'
   click_button 'Leave Review'
