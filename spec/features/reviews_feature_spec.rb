@@ -24,6 +24,15 @@ feature 'reviewing' do
     expect(page).to have_content('★★★★☆')
   end
 
+  scenario 'rounds the average rating for all reviews' do
+    leave_review('So so', '3')
+    click_link 'Sign out'
+    sign_up_diff_user
+    leave_review('Great', '4')
+    expect(page).to have_content('Average rating: 4')
+    expect(page).to have_content('★★★★☆')
+  end
+
   scenario 'displays the time of a recent post relative to now' do
     leave_review('So so', '3')
     expect(page).to have_content('less than a minute ago')

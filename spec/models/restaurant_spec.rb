@@ -9,7 +9,7 @@ describe Restaurant, type: :model do
     expect(restaurant).not_to be_valid
   end
 
-  it 'is not valid unles it has a unique name' do
+  it 'is not valid unless it has a unique name' do
     Restaurant.create(name: "Moe's Tavern")
     restaurant = Restaurant.new(name: "Moe's Tavern")
     expect(restaurant).to have(1).error_on(:name)
@@ -38,7 +38,7 @@ describe Restaurant, type: :model do
     context 'no reviews' do
       it 'returns "N/A" when there are no reviews' do
         restaurant = Restaurant.create(name: 'The Ivy')
-        expect(restaurant.average_rating).to eq '☆☆☆☆☆'
+        expect(restaurant.average_rating).to eq 'N/A'
       end
     end
 
@@ -47,6 +47,24 @@ describe Restaurant, type: :model do
         restaurant = Restaurant.create(name: 'The Ivy')
         restaurant.reviews.create(rating: 4)
         expect(restaurant.average_rating).to eq 4
+      end
+    end
+
+    context 'more than one review' do
+      it 'returns the average rating' do
+        restaurant = Restaurant.create(name: 'The Ivy')
+        restaurant.reviews.create(rating: 1)
+        review_two = restaurant.reviews.new(rating: 5)
+        review_two.save(validate: false)
+        expect(restaurant.average_rating.to_i).to eq 3
+      end
+
+      it 'returns the average rating rounded' do
+        restaurant = Restaurant.create(name: 'The Ivy')
+        restaurant.reviews.create(rating: 1)
+        review_two = restaurant.reviews.new(rating: 2)
+        review_two.save(validate: false)
+        expect(restaurant.average_rating.to_i).to eq 2
       end
     end
   end

@@ -8,8 +8,8 @@ class Restaurant < ActiveRecord::Base
   belongs_to :user
 
   def average_rating
-    return '☆☆☆☆☆' if reviews.none?
-    reviews.average(:rating)
+    return 'N/A' if reviews.none?
+    reviews.average(:rating).round
   end
 
 end
