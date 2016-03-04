@@ -8,8 +8,6 @@
     = link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete
     - unless current_user && current_user.has_reviewed?(restaurant)
       = link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant)
-    - if current_user && current_user.has_reviewed?(restaurant)
-      = link_to "Delete Review", restaurant_review_path(restaurant, current_user), method: :delete
     - if restaurant.reviews.any?
       %ul
         - restaurant.reviews.each do |review|
@@ -19,6 +17,8 @@
             %strong /5
             %em= distance_of_time_in_words(review.created_at, Time.now)
             %em ago
+            - if current_user && current_user.id == review.user_id
+              = link_to "Delete Review", review_path(review), method: :delete
     - else
       %p No reviews
 
