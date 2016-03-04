@@ -17,7 +17,9 @@
             %strong /5
             %em= distance_of_time_in_words(review.created_at, Time.now)
             %em ago
-            %p= pluralize review.endorsements.count, 'endorsement'
+            = link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link'
+            %span.endorsements_count= review.endorsements.count
+            = 'endorsement'.pluralize review.endorsements.count
             - if current_user && current_user.id == review.user_id
               = link_to "Delete Review", review_path(review), method: :delete
     - else
